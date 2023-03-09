@@ -4,4 +4,4 @@ RUN pecl install apcu
 
 RUN echo "extension=apcu.so" >> /opt/bitnami/php/lib/php.ini
 
-COPY . /app
+COPY ./my-project /app
