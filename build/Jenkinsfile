@@ -1,0 +1,44 @@
+@Library('webplatform-jenkins-library')
+import fleetcomplete.Common
+
+def common = new Common()
+
+def appUrl
+def featureName
+def featurePackageName
+def featurePackageVersion
+def featurePackageFile
+
+pipeline {
+  agent {
+    kubernetes {
+      yaml common.loadKubernetesYaml()
+    }
+  }
+  options {
+        ansiColor('xterm')
+        buildDiscarder(logRotator(numToKeepStr: '200'))
+        timestamps()
+  }
+  stages {
+    stage('Generate name and version') {
+      steps {
+        script {
+          common.builderContext {
+            featureName = 'php-metrics'
+            featurePackageVersion = common.buildReleaseVersion(env.GIT_BRANCH, env.GIT_COMMIT)
+            print env.GIT_BRANCH
+          }
+        }
+
+      }
+    }
+    stage('Build container') {
+      steps {
+        script {
+          common.buildContainer(featureName, featurePackageVersion, false, "build/Dockerfile)
+        }
+      }
+    }
+  }
+}

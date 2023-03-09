@@ -2,7 +2,7 @@ version: '2'
 
 services:
   myapp:
-    build: myapp/
+    build: build/
     ports:
       - '8000:8000'
     volumes:
