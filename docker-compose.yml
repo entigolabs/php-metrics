@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  myapp:
+    build: myapp/
+    ports:
+      - '8000:8000'
+    volumes:
+      - './my-project:/app'
