@@ -12,7 +12,7 @@ $increment_by = 1;
 //***********************************************************
 function pingDomain($domain){
     $starttime = microtime(true);
-    $file      = fsockopen($domain, 8000, $errno, $errstr, 10);
+    $file      = fsockopen($domain, 80, $errno, $errstr, 10);
     $stoptime  = microtime(true);
 
     if (!$file){
@@ -25,7 +25,7 @@ function pingDomain($domain){
     return $status;
 }
 //this $domain value should be the IP address of the laravel server
-$total_time = pingDomain("192.168.0.17");
+$total_time = pingDomain("www.google.com");
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
 $histogram = $registry->RegisterHistogram('test', 'response_histogram', 'it observes', ['type'], [1,2,3,4,5,6,7,8,9,10]);
