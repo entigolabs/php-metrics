@@ -28,7 +28,7 @@ function pingDomain($domain){
 $total_time = pingDomain("www.google.com");
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
-$histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
+$histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150]);
 $histogram->observe($total_time, [$color]);
 
 //*********************************************************************
