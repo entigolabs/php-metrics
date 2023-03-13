@@ -28,22 +28,20 @@ function pingDomain($domain){
 $total_time = pingDomain("www.google.com");
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
-$histogram = $registry->RegisterHistogram('test', 'response_histogram', 'it observes', ['type'], [1,2,3,4,5,6,7,8,9,10]);
+$histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
 $histogram->observe($total_time, [$color]);
 
 //*********************************************************************
 //** count how many times the page received http_response_code '200' **
 //*********************************************************************
 $http_status = http_response_code();
-if (http_response_code() == 200) {
-    $counter = $registry->registerCounter('test', '200_counter', 'it increases', ['type']);
-    $counter->incBy($increment_by, ['200']);
-}
+$counter = $registry->registerCounter('test', 'http_response_counter', 'it increases', ['type']);
+$counter->incBy($increment_by, [$http_status]);
 
 //****************************************************
 //** count how many times the page has been visited **
 //****************************************************
-$counter = $registry->registerCounter('test', 'red_counter', 'it increases', ['type']);
+$counter = $registry->registerCounter('test', 'color_counter', 'it increases', ['type']);
 $counter->incBy($increment_by, [$color]);
 
 ?>
