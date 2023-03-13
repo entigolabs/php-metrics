@@ -44,4 +44,11 @@ $counter->incBy($increment_by, [$http_status]);
 $counter = $registry->registerCounter('test', 'color_counter', 'it increases', ['type']);
 $counter->incBy($increment_by, [$color]);
 
+//***************************************************
+//** Count the one-time latency of the connnection **
+//***************************************************
+
+$gauge = $registry->registerGauge('test', 'latency_gauge', 'it sets', ['type']);
+$gauge->set($total_time, [$color]);
+
 ?>
