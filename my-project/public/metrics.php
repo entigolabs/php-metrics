@@ -20,20 +20,21 @@ function pingDomain($domain){
     }
     else{
         fclose($file);
-        $status = ($stoptime - $starttime) * 1000;
+        $status = ($stoptime - $starttime) * 100;
     }
     return $status;
 }
 //this $domain value should be the IP address of the laravel server
-$total_time = pingDomain("www.google.com");
+$site_to_ping = pingDomain("www.google.com");
+$total_time = $site_to_ping;
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
-$histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150]);
+$histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]);
 $histogram->observe($total_time, [$color]);
 
-//*********************************************************************
-//** count how many times the page received http_response_code '200' **
-//*********************************************************************
+//***********************************************************************
+//** count all the different http response codes the endpoints receive **
+//***********************************************************************
 $http_status = http_response_code();
 $counter = $registry->registerCounter('test', 'http_response_counter', 'it increases', ['type']);
 $counter->incBy($increment_by, [$http_status]);
