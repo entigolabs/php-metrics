@@ -20,5 +20,3 @@ Route::get('/green', '\App\Http\Controllers\EndpointController@green');
 Route::get('/blue', '\App\Http\Controllers\EndpointController@blue');
 
 Route::get('/metrics', '\App\Http\Controllers\EndpointController@metrics');
-
-

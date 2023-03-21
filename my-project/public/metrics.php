@@ -33,7 +33,7 @@ if ($color == 'red')
 elseif($color == 'green')
     $site_to_ping = pingDomain("www.google.com");
 elseif($color == 'blue')
-    $site_to_ping = pingDomain("www.amazon.com");
+    $site_to_ping = pingDomain("php-metrics-test.vpn-qa.fleetcomplete.dev");
 
 $total_time = $site_to_ping;
 $histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]);
