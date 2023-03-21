@@ -41,13 +41,13 @@ $color = substr($color, 1);
 
 if ($color == 'red')
     $site_to_ping = pingDomain("appshell.qa.fleetcomplete.dev") &&
-    $site_http_code = getHTTPCode("appshell.qa.fleetcomplete.dev");
+    $site_http_code = getHTTPCode("https://appshell.qa.fleetcomplete.dev");
 elseif ($color == 'green')
     $site_to_ping = pingDomain("www.google.com") &&
     $site_http_code = getHTTPCode("www.google.com");
 elseif ($color == 'blue')
     $site_to_ping = pingDomain("php-metrics-test.vpn-qa.fleetcomplete.dev") &&
-    $site_http_code = getHTTPCode("php-metrics-test.vpn-qa.fleetcomplete.dev");
+    $site_http_code = getHTTPCode("https://php-metrics-test.vpn-qa.fleetcomplete.dev");
 
 //***********************************************************
 //** count how long the response time was on each endpoint **
