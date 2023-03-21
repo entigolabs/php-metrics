@@ -29,7 +29,7 @@ $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
 
 if ($color == 'red')
-    $site_to_ping = pingDomain("https://appshell.qa.fleetcomplete.dev/p1/");
+    $site_to_ping = pingDomain("https://appshell.qa.fleetcomplete.dev");
 elseif($color == 'green')
     $site_to_ping = pingDomain("www.google.com");
 elseif($color == 'blue')
