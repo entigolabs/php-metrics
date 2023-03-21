@@ -12,7 +12,7 @@ $increment_by = 1;
 //***********************************************************
 function pingDomain($domain){
     $starttime = microtime(true);
-    $file      = fsockopen($domain, 80, $errno, $errstr, 10);
+    $file      = fsockopen($domain, 80, $errno, $errstr, 5);
     $stoptime  = microtime(true);
 
     if (!$file){
@@ -25,7 +25,7 @@ function pingDomain($domain){
     return $status;
 }
 //this $domain value should be the IP address of the laravel server
-$site_to_ping = pingDomain("www.google.com");
+$site_to_ping = pingDomain("https://appshell.qa.fleetcomplete.dev/p1/");
 $total_time = $site_to_ping;
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
@@ -46,7 +46,7 @@ $counter = $registry->registerCounter('test', 'color_counter', 'it increases', [
 $counter->incBy($increment_by, [$color]);
 
 //***************************************************
-//** Count the one-time latency of the connnection **
+//** Count the one-time latency of the connection **
 //***************************************************
 
 $gauge = $registry->registerGauge('test', 'latency_gauge', 'it sets', ['type']);
