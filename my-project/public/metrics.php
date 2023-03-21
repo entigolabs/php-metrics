@@ -39,11 +39,16 @@ $total_time = $site_to_ping;
 $histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]);
 $histogram->observe($total_time, [$color]);
 
-//***********************************************************************
-//** count all the different http response codes the endpoints receive **
-//***********************************************************************
+//*******************************************************************************
+//** count all the different http response codes each of the endpoints receive **
+//*******************************************************************************
 $http_status = http_response_code();
-$counter = $registry->registerCounter('test', 'http_response_counter', 'it increases', ['type']);
+if ($color == 'red')
+    $counter = $registry->registerCounter('test', 'http_response_counter_red', 'it increases', ['type']);
+elseif($color == 'green')
+    $counter = $registry->registerCounter('test', 'http_response_counter_green', 'it increases', ['type']);
+elseif($color == 'blue')
+    $counter = $registry->registerCounter('test', 'http_response_counter_blue', 'it increases', ['type']);
 $counter->incBy($increment_by, [$http_status]);
 
 //****************************************************
