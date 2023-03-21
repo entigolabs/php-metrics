@@ -12,7 +12,7 @@ $increment_by = 1;
 //***********************************************************
 function pingDomain($domain){
     $starttime = microtime(true);
-    $file      = fsockopen($domain, 80, $errno, $errstr, 5);
+    $file      = fsockopen($domain, 443, $errno, $errstr, 5);
     $stoptime  = microtime(true);
 
     if (!$file){
@@ -24,11 +24,18 @@ function pingDomain($domain){
     }
     return $status;
 }
-//this $domain value should be the IP address of the laravel server
-$site_to_ping = pingDomain("https://appshell.qa.fleetcomplete.dev/p1/");
-$total_time = $site_to_ping;
+
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
+
+if ($color == 'red')
+    $site_to_ping = pingDomain("https://appshell.qa.fleetcomplete.dev/p1/");
+elseif($color == 'green')
+    $site_to_ping = pingDomain("www.google.com");
+elseif($color == 'blue')
+    $site_to_ping = pingDomain("www.amazon.com");
+
+$total_time = $site_to_ping;
 $histogram = $registry->RegisterHistogram('test', 'response_time_histogram', 'it observes', ['type'], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]);
 $histogram->observe($total_time, [$color]);
 
