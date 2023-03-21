@@ -7,6 +7,7 @@ $adapter = new Prometheus\Storage\APC();
 $registry = new CollectorRegistry($adapter);
 $increment_by = 1;
 
+//function to *ping* the domain
 function pingDomain($domain){
     $starttime = microtime(true);
     $file      = fsockopen($domain, 443, $errno, $errstr, 5);
@@ -22,8 +23,8 @@ function pingDomain($domain){
     return $status;
 }
 
-function getHTTPCode($url)
-{
+//function to check the response code of the domain
+function getHTTPCode($url){
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HEADER, true);
     curl_setopt($ch, CURLOPT_NOBODY, true);
@@ -36,18 +37,21 @@ function getHTTPCode($url)
     return $httpcode;
 }
 
+//find out which endpoint the request is going to
 $color = $_SERVER['REQUEST_URI'];
 $color = substr($color, 1);
 
-if ($color == 'red')
-    $site_to_ping = pingDomain("appshell.qa.fleetcomplete.dev") &&
+//choose different URL's for the ping and http code gathering
+if ($color == 'red'){
+    $site_to_ping = pingDomain("appshell.qa.fleetcomplete.dev");
     $site_http_code = getHTTPCode("https://appshell.qa.fleetcomplete.dev");
-elseif ($color == 'green')
-    $site_to_ping = pingDomain("www.google.com") &&
+} elseif ($color == 'green'){
+    $site_to_ping = pingDomain("www.google.com");
     $site_http_code = getHTTPCode("www.google.com");
-elseif ($color == 'blue')
-    $site_to_ping = pingDomain("php-metrics-test.vpn-qa.fleetcomplete.dev") &&
+} elseif ($color == 'blue'){
+    $site_to_ping = pingDomain("php-metrics-test.vpn-qa.fleetcomplete.dev");
     $site_http_code = getHTTPCode("https://php-metrics-test.vpn-qa.fleetcomplete.dev");
+}
 
 //***********************************************************
 //** count how long the response time was on each endpoint **
